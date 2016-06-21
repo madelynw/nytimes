@@ -6,7 +6,10 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +27,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.madelynw.nytimessearch.Article;
 import com.madelynw.nytimessearch.ArticleArrayAdapter;
+import com.madelynw.nytimessearch.ItemClickSupport;
 import com.madelynw.nytimessearch.R;
 
 import org.json.JSONArray;
@@ -36,9 +40,8 @@ import cz.msebera.android.httpclient.Header;
 
 public class SearchActivity extends AppCompatActivity {
 
-    EditText etQuery;
     GridView gvResults;
-    Button btnSearch;
+    RecyclerView rvResults;
 
     ArrayList<Article> articles;
     ArticleArrayAdapter adapter;
@@ -53,9 +56,32 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void setupViews() {
-        //etQuery = (EditText) findViewById(R.id.etQuery);
+        rvResults = (RecyclerView) findViewById(R.id.rvResults);
+        articles = new ArrayList<>();
+        adapter = new ArticleArrayAdapter(this, articles);
+        rvResults.setAdapter(adapter);
+        StaggeredGridLayoutManager gridLayoutManager =
+                new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
+        rvResults.setLayoutManager(gridLayoutManager);
+
+        ItemClickSupport.addTo(rvResults).setOnItemClickListener(
+                new ItemClickSupport.OnItemClickListener() {
+                    @Override
+                    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                        // Create an intent to display the article
+                        Intent i = new Intent(getApplicationContext(), ArticleActivity.class);
+                        // Get the article to display
+                        Article article = articles.get(position);
+                        // Pass in that article into intent
+                        i.putExtra("article", article);
+                        // Launch the activity
+                        startActivity(i);
+                    }
+                }
+        );
+
+            /**
         gvResults = (GridView) findViewById(R.id.gvResults);
-        //btnSearch = (Button) findViewById(R.id.btnSearch);
         articles = new ArrayList<>();
         adapter = new ArticleArrayAdapter(this, articles);
         gvResults.setAdapter(adapter);
@@ -73,12 +99,14 @@ public class SearchActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+         */
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_search, menu);
+
 
         MenuItem searchItem = menu.findItem(R.id.action_search);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
@@ -101,8 +129,11 @@ public class SearchActivity extends AppCompatActivity {
                         JSONArray articleJsonResults = null;
 
                         try {
+                            int curSize = adapter.getItemCount();
                             articleJsonResults = response.getJSONObject("response").getJSONArray("docs");
-                            adapter.addAll(Article.fromJSONArray(articleJsonResults));
+                            articles.addAll(Article.fromJSONArray(articleJsonResults));
+                            //adapter.addAll(Article.fromJSONArray(articleJsonResults));
+                            adapter.notifyItemRangeInserted(curSize, articleJsonResults.length());
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -123,6 +154,7 @@ public class SearchActivity extends AppCompatActivity {
         });
         searchItem.expandActionView();
         searchView.requestFocus();
+
         return super.onCreateOptionsMenu(menu);
     }
 

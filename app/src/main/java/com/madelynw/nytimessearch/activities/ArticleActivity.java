@@ -29,7 +29,7 @@ public class ArticleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_article);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Article article = (Article) getIntent().getSerializableExtra("article");
 
@@ -59,7 +59,7 @@ public class ArticleActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-    */
+     */
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
