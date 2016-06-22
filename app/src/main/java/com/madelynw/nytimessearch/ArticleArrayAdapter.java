@@ -97,4 +97,16 @@ public class ArticleArrayAdapter extends RecyclerView.Adapter<ArticleArrayAdapte
         return articles.size();
     }
 
+    // Clean all elements of the recycler
+    public void clear() {
+        articles.clear();
+        notifyDataSetChanged();
+    }
+
+    // Add a list of items
+    public void addAll(List<Article> list) {
+        articles.addAll(list);
+        notifyDataSetChanged();
+    }
+
 }
