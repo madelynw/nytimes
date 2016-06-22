@@ -16,6 +16,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+
 /**
  * Created by madelynw on 6/20/16.
  */
@@ -71,18 +73,22 @@ public class ArticleArrayAdapter extends RecyclerView.Adapter<ArticleArrayAdapte
 
         // Find the image view
         ImageView imageView = viewHolder.ivImage;
+        //DynamicHeightImageView imageView = (DynamicHeightImageView) viewHolder.ivImage;
 
         // Clear out recycled image from convertView from last time
         imageView.setImageResource(0);
 
-        //imageView.setHeightRatio(((double)photo.getHeight())/photo.getWidth());
-
         // Populate the thumbnail image
 
         String thumbnail = article.getThumbnail();
+
+        //imageView.setHeightRatio(((double)thumbnail.getHeight())/thumbnail.getWidth());
+        //imageView.setHeightRatio(10.0);
+
         if (!TextUtils.isEmpty(thumbnail)) {
             Glide.with(getContext()).load(thumbnail)
                     .placeholder(R.drawable.ic_action_name)
+                    //.transform(new RoundedCornersTransformation(10, 10))
                     .error(R.drawable.ic_action_name)
                     .into(imageView);
         } else {

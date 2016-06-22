@@ -23,6 +23,8 @@ public class ArticleActivity extends AppCompatActivity {
 
     private ShareActionProvider miShareAction;
 
+    WebView webView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +35,7 @@ public class ArticleActivity extends AppCompatActivity {
 
         Article article = (Article) getIntent().getSerializableExtra("article");
 
-        WebView webView = (WebView) findViewById(R.id.wvArticle);
+        webView = (WebView) findViewById(R.id.wvArticle);
 
         assert webView != null;
         webView.setWebViewClient(new WebViewClient() {
@@ -46,7 +48,6 @@ public class ArticleActivity extends AppCompatActivity {
         webView.loadUrl(article.getWebUrl());
     }
 
-    /**
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -59,7 +60,6 @@ public class ArticleActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-     */
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -80,6 +80,17 @@ public class ArticleActivity extends AppCompatActivity {
 
         miShareAction.setShareIntent(shareIntent);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (webView.canGoBack()) {
+            webView.goBack();
+            return;
+        }
+
+        // Otherwise defer to system default behavior.
+        super.onBackPressed();
     }
 
 }
