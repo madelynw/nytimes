@@ -27,6 +27,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.madelynw.nytimessearch.Article;
 import com.madelynw.nytimessearch.ArticleArrayAdapter;
+import com.madelynw.nytimessearch.EndlessRecyclerViewScrollListener;
 import com.madelynw.nytimessearch.ItemClickSupport;
 import com.madelynw.nytimessearch.R;
 
@@ -43,6 +44,7 @@ public class SearchActivity extends AppCompatActivity {
     GridView gvResults;
     RecyclerView rvResults;
 
+    String search;
     ArrayList<Article> articles;
     ArticleArrayAdapter adapter;
 
@@ -80,33 +82,53 @@ public class SearchActivity extends AppCompatActivity {
                 }
         );
 
-            /**
-        gvResults = (GridView) findViewById(R.id.gvResults);
-        articles = new ArrayList<>();
-        adapter = new ArticleArrayAdapter(this, articles);
-        gvResults.setAdapter(adapter);
-
-        gvResults.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        // Add the scroll listener
+        rvResults.addOnScrollListener(new EndlessRecyclerViewScrollListener(gridLayoutManager) {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Create an intent to display the article
-                Intent i = new Intent(getApplicationContext(), ArticleActivity.class);
-                // Get the article to display
-                Article article = articles.get(position);
-                // Pass in that article into intent
-                i.putExtra("article", article);
-                // Launch the activity
-                startActivity(i);
+            public void onLoadMore(int page, int totalItemsCount) {
+                // Triggered only when new data needs to be appended to the list
+                // Add whatever code is needed to append new items to the bottom of the list
+                customLoadMoreDataFromApi(page);
             }
         });
-         */
+
     }
+
+    // Append more data into the adapter
+    // This method probably sends out a network request and appends new data items to your adapter.
+    public void customLoadMoreDataFromApi(int page) {
+
+        AsyncHttpClient client = new AsyncHttpClient();
+        String url = "http://api.nytimes.com/svc/search/v2/articlesearch.json";
+
+        RequestParams params = new RequestParams();
+        params.put("api-key", "dba5aa8684784b61aad08add1b93f907");
+        params.put("page", page);
+        params.put("q", search);
+
+        client.get(url, params, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                Log.d("DEBUG", response.toString());
+                JSONArray articleJsonResults = null;
+
+                try {
+                    int curSize = adapter.getItemCount();
+                    articleJsonResults = response.getJSONObject("response").getJSONArray("docs");
+                    articles.addAll(Article.fromJSONArray(articleJsonResults));
+                    adapter.notifyItemRangeInserted(curSize, articleJsonResults.length() - 1);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_search, menu);
-
 
         MenuItem searchItem = menu.findItem(R.id.action_search);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
@@ -114,32 +136,11 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 // perform query here
-                AsyncHttpClient client = new AsyncHttpClient();
-                String url = "http://api.nytimes.com/svc/search/v2/articlesearch.json";
+                articles.clear();
+                adapter.notifyDataSetChanged();
+                fetchArticles(query);
+                search = query;
 
-                RequestParams params = new RequestParams();
-                params.put("api-key", "dba5aa8684784b61aad08add1b93f907");
-                params.put("page", 0);
-                params.put("q", query);
-
-                client.get(url, params, new JsonHttpResponseHandler() {
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                        Log.d("DEBUG", response.toString());
-                        JSONArray articleJsonResults = null;
-
-                        try {
-                            int curSize = adapter.getItemCount();
-                            articleJsonResults = response.getJSONObject("response").getJSONArray("docs");
-                            articles.addAll(Article.fromJSONArray(articleJsonResults));
-                            //adapter.addAll(Article.fromJSONArray(articleJsonResults));
-                            adapter.notifyItemRangeInserted(curSize, articleJsonResults.length());
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                });
                 // workaround to avoid issues with some emulators and keyboard devices firing twice if a keyboard enter is used
                 // see https://code.google.com/p/android/issues/detail?id=24599
                 searchView.clearFocus();
@@ -158,21 +159,7 @@ public class SearchActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    /**
-    public void onArticleSearch(View view) {
-        String query = etQuery.getText().toString();
-
-        //Toast.makeText(this, "Searching for " + query, Toast.LENGTH_LONG).show();
+    private void fetchArticles(String query) {
         AsyncHttpClient client = new AsyncHttpClient();
         String url = "http://api.nytimes.com/svc/search/v2/articlesearch.json";
 
@@ -188,8 +175,10 @@ public class SearchActivity extends AppCompatActivity {
                 JSONArray articleJsonResults = null;
 
                 try {
+                    int curSize = adapter.getItemCount();
                     articleJsonResults = response.getJSONObject("response").getJSONArray("docs");
-                    adapter.addAll(Article.fromJSONArray(articleJsonResults));
+                    articles.addAll(Article.fromJSONArray(articleJsonResults));
+                    adapter.notifyItemRangeInserted(curSize, articleJsonResults.length());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -197,5 +186,14 @@ public class SearchActivity extends AppCompatActivity {
 
         });
     }
-     */
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        return super.onOptionsItemSelected(item);
+    }
 }
