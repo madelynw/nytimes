@@ -2,12 +2,9 @@ package com.madelynw.nytimessearch.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -16,11 +13,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.GridView;
-import android.widget.Toast;
 
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -42,7 +34,6 @@ import cz.msebera.android.httpclient.Header;
 
 public class SearchActivity extends AppCompatActivity {
 
-    GridView gvResults;
     RecyclerView rvResults;
 
     String search;
@@ -67,7 +58,7 @@ public class SearchActivity extends AppCompatActivity {
         articles = new ArrayList<>();
         adapter = new ArticleArrayAdapter(this, articles);
         rvResults.setAdapter(adapter);
-        StaggeredGridLayoutManager gridLayoutManager =
+        final StaggeredGridLayoutManager gridLayoutManager =
                 new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
         rvResults.setLayoutManager(gridLayoutManager);
 
@@ -97,32 +88,32 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-        /**
-         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer); 
-        // Setup refresh listener which triggers new data loading 
-        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() { 
+
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+        // Setup refresh listener which triggers new data loading
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onRefresh() { 
+            public void onRefresh() {
                 // Your code to refresh the list here. 
                 // Make sure you call swipeContainer.setRefreshing(false)
                 // once the network request has completed successfully.
-                update(0); 
+                update(0);
 
                 rvResults.addOnScrollListener(new EndlessRecyclerViewScrollListener(gridLayoutManager) {
                     @Override
                     public void onLoadMore(int page, int totalItemsCount) {
-                        // Triggered only when new data needs to be appended to the list 
-                        // Add whatever code is needed to append new items to the bottom of the list 
+                        // Triggered only when new data needs to be appended to the list
+                        // Add whatever code is needed to append new items to the bottom of the list
                         customLoadMoreDataFromApi(page);
                     }
-                }); 
-            } });  
+                });
+            }
+        });
         // Configure the refreshing colors
-         swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
-                android.R.color.holo_green_light, android.R.color.holo_orange_light,
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
-            */
-
 
     }
 
@@ -229,37 +220,39 @@ public class SearchActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-    public void update(int page) { 
-        // Send the network request to fetch the updated data
-        // `client` here is an instance of Android Async HTTP 
+    public void update(int page) {
         client = new AsyncHttpClient();
         String url = "http://api.nytimes.com/svc/search/v2/articlesearch.json";
 
         RequestParams params = new RequestParams();
-        params.put("api-key", "dba5aa8684784b61aad08add1b93f907"); 
-        params.put("page", page); 
+        params.put("api-key", "dba5aa8684784b61aad08add1b93f907");
+        params.put("page", page);
         params.put("q", search);
 
         client.get(url, params, new JsonHttpResponseHandler() {
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) { 
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 Log.d("DEBUG", response.toString());
-                JSONArray articleJsonResults = null;  
-                try { 
+                JSONArray articleJsonResults = null;
+
+                try {
                     adapter.clear();
+
                     int curSize = adapter.getItemCount();
                     articleJsonResults = response.getJSONObject("response").getJSONArray("docs");
                     articles.addAll(Article.fromJSONArray(articleJsonResults));
                     adapter.notifyItemRangeInserted(curSize, articleJsonResults.length());
+
                     swipeContainer.setRefreshing(false);
                 } catch (JSONException e) {
-                    e.printStackTrace(); 
-                } }  
+                    e.printStackTrace();
+                }
+            }
 
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) { 
-                Log.d("DEBUG", "Fetch timeline error: " + throwable.toString()); 
-            } 
-        }); } 
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                Log.d("DEBUG", "Fetch timeline error: " + throwable.toString());
+            }
+        });
+    }
 
-     */
 }
