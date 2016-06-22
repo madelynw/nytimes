@@ -33,7 +33,7 @@ public class ArticleActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Article article = (Article) getIntent().getSerializableExtra("article");
+        Article article = getIntent().getParcelableExtra("article");
 
         webView = (WebView) findViewById(R.id.wvArticle);
 
