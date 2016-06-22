@@ -5,19 +5,22 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/ivImage"
-        android:scaleType="center"
+        android:scaleType="centerCrop"
         tools:src="@mipmap/ic_launcher"
-        android:background="?android:attr/selectableItemBackground"/>
+        android:background="?android:attr/selectableItemBackground" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tvTitle"
         tools:text="TextView"
-        android:maxLines="2"
-        android:ellipsize="end"
+        android:gravity="left"
+        android:padding="8dp"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        android:fontFamily="serif"
         android:background="?android:attr/selectableItemBackground"/>
 </LinearLayout>

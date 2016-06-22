@@ -6,13 +6,10 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -83,11 +80,12 @@ public class ArticleArrayAdapter extends RecyclerView.Adapter<ArticleArrayAdapte
         String thumbnail = article.getThumbnail();
 
         //imageView.setHeightRatio(((double)thumbnail.getHeight())/thumbnail.getWidth());
-        //imageView.setHeightRatio(10.0);
+        //imageView.setHeightRatio(2.0);
 
         if (!TextUtils.isEmpty(thumbnail)) {
             Glide.with(getContext()).load(thumbnail)
                     .placeholder(R.drawable.ic_action_name)
+                    .fitCenter()
                     //.transform(new RoundedCornersTransformation(10, 10))
                     .error(R.drawable.ic_action_name)
                     .into(imageView);

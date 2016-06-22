@@ -23,6 +23,7 @@ import com.madelynw.nytimessearch.ArticleArrayAdapter;
 import com.madelynw.nytimessearch.EndlessRecyclerViewScrollListener;
 import com.madelynw.nytimessearch.ItemClickSupport;
 import com.madelynw.nytimessearch.R;
+import com.madelynw.nytimessearch.SpacesItemDecoration;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -62,6 +63,9 @@ public class SearchActivity extends AppCompatActivity {
                 new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
         rvResults.setLayoutManager(gridLayoutManager);
 
+        SpacesItemDecoration decoration = new SpacesItemDecoration(16);
+        rvResults.addItemDecoration(decoration);
+
         ItemClickSupport.addTo(rvResults).setOnItemClickListener(
                 new ItemClickSupport.OnItemClickListener() {
                     @Override
@@ -97,7 +101,7 @@ public class SearchActivity extends AppCompatActivity {
                 // Your code to refresh the list here. 
                 // Make sure you call swipeContainer.setRefreshing(false)
                 // once the network request has completed successfully.
-                update(0);
+                //update(0);
 
                 rvResults.addOnScrollListener(new EndlessRecyclerViewScrollListener(gridLayoutManager) {
                     @Override
@@ -143,6 +147,11 @@ public class SearchActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
             }
         });
     }
@@ -207,6 +216,10 @@ public class SearchActivity extends AppCompatActivity {
                 }
             }
 
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+            }
         });
     }
 

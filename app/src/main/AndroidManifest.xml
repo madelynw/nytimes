@@ -24,10 +24,12 @@
         <activity
             android:name=".activities.ArticleActivity"
             android:label="@string/title_activity_article"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName="com.madelynw.nytimessearch.activities.SearchActivity" >
+
             <meta-data
                 android:name="android.support.SearchActivity"
-                android:value="com.madelynw.nytimessearch.SearchActivity" />
+                android:value="com.madelynw.nytimessearch.activities.SearchActivity" />
         </activity>
     </application>
 
