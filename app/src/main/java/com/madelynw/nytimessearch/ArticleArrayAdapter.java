@@ -81,7 +81,13 @@ public class ArticleArrayAdapter extends RecyclerView.Adapter<ArticleArrayAdapte
 
         String thumbnail = article.getThumbnail();
         if (!TextUtils.isEmpty(thumbnail)) {
-            Glide.with(getContext()).load(thumbnail).into(imageView);
+            Glide.with(getContext()).load(thumbnail)
+                    .placeholder(R.drawable.ic_action_name)
+                    .error(R.drawable.ic_action_name)
+                    .into(imageView);
+        } else {
+            Glide.with(getContext()).load(R.drawable.ic_action_name)
+                    .into(imageView);
         }
     }
 
