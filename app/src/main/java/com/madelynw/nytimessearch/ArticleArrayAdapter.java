@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -84,13 +85,14 @@ public class ArticleArrayAdapter extends RecyclerView.Adapter<ArticleArrayAdapte
 
         if (!TextUtils.isEmpty(thumbnail)) {
             Glide.with(getContext()).load(thumbnail)
-                    .placeholder(R.drawable.ic_action_name)
+                    .placeholder(R.drawable.ic_photo)
+                    .bitmapTransform(new RoundedCornersTransformation(getContext(), 100, 100))
                     .fitCenter()
-                    //.transform(new RoundedCornersTransformation(10, 10))
-                    .error(R.drawable.ic_action_name)
+                    //.thumbnail(0.5f)
+                    .error(R.drawable.ic_photo)
                     .into(imageView);
         } else {
-            Glide.with(getContext()).load(R.drawable.ic_action_name)
+            Glide.with(getContext()).load(R.drawable.ic_photo)
                     .into(imageView);
         }
     }

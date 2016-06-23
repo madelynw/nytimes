@@ -18,9 +18,9 @@
         android:id="@+id/tvTitle"
         tools:text="TextView"
         android:gravity="left"
-        android:padding="8dp"
+        android:padding="7dp"
         android:textColor="@color/black"
-        android:textSize="13sp"
+        android:textSize="12sp"
         android:fontFamily="serif"
         android:background="?android:attr/selectableItemBackground"/>
 </LinearLayout>

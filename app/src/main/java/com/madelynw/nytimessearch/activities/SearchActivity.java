@@ -101,7 +101,7 @@ public class SearchActivity extends AppCompatActivity {
                 // Your code to refresh the list here. 
                 // Make sure you call swipeContainer.setRefreshing(false)
                 // once the network request has completed successfully.
-                //update(0);
+                update(0);
 
                 rvResults.addOnScrollListener(new EndlessRecyclerViewScrollListener(gridLayoutManager) {
                     @Override
