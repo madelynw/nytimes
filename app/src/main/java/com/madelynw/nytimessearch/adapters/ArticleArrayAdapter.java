@@ -94,6 +94,7 @@ public class ArticleArrayAdapter extends RecyclerView.Adapter<ArticleArrayAdapte
                     .into(imageView);
         } else {
             Glide.with(getContext()).load(R.drawable.ic_photo)
+                    .fitCenter()
                     .into(imageView);
         }
     }

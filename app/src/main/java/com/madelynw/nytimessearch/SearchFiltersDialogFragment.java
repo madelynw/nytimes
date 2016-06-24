@@ -1,5 +1,6 @@
 package com.madelynw.nytimessearch;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -7,18 +8,39 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.madelynw.nytimessearch.models.SearchFilters;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
  * Created by madelynw on 6/23/16.
  */
 public class SearchFiltersDialogFragment extends DialogFragment
-        implements View.OnClickListener {
+        implements View.OnClickListener, DatePickerDialog.OnDateSetListener {
     // ...other views declared here...
 
     private SearchFilters mFilters;
 
+    EditText etSelectDate;
+    Button btnSave;
+    CheckBox cbArts;
+    CheckBox cbSports;
+    CheckBox cbFashion;
+    Spinner spSort;
+
+
+    public SearchFiltersDialogFragment() {
+        // Empty constructor is required for DialogFragment
+        // Make sure not to add arguments to the constructor
+        // Use `newInstance` instead as shown below
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
@@ -47,11 +69,25 @@ public class SearchFiltersDialogFragment extends DialogFragment
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         // Store the filters to a member variable
-        //mFilters = (SearchFilters) getArguments().getParcelable("filters");
         mFilters = getArguments().getParcelable("filters");
         // ... any other view lookups here...
+
+        etSelectDate = (EditText) view.findViewById(R.id.etSelectDate);
+        etSelectDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDatePickerDialog(view);
+            }
+        });
+
+        spSort = (Spinner) view.findViewById(R.id.spSortOrder);
+
+        cbArts = (CheckBox) view.findViewById(R.id.cbArts);
+        cbFashion = (CheckBox) view.findViewById(R.id.cbFashion);
+        cbSports = (CheckBox) view.findViewById(R.id.cbSports);
+
         // Get access to the button
-        Button btnSave = (Button) view.findViewById(R.id.btnSave);
+        btnSave = (Button) view.findViewById(R.id.btnSave);
         // 2. Attach a callback when the button is pressed
         btnSave.setOnClickListener(this);
     }
@@ -63,6 +99,13 @@ public class SearchFiltersDialogFragment extends DialogFragment
     public void onClick(View v) {
         // Update the mFilters based on the input views
         // ...
+
+        Toast.makeText(getContext(), "hi", Toast.LENGTH_SHORT).show();
+        // Get value from spinner
+        //String value = spSort.getSelectedItem().toString();
+        //onCheckboxClicked(v);
+
+
         // Return filters back to activity through the implemented listener
         OnFilterSearchListener listener = (OnFilterSearchListener) getActivity();
         listener.onUpdateFilters(mFilters);
@@ -70,4 +113,64 @@ public class SearchFiltersDialogFragment extends DialogFragment
         dismiss();
     }
 
+    public void showDatePickerDialog(View v) {
+        DatePickerFragment newFragment = new DatePickerFragment();
+        newFragment.setTargetFragment(this, 300);
+        newFragment.show(getFragmentManager(), "date_picker");
+    }
+
+    // handle the date selected
+    @Override
+    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
+    {
+        // store the values selected into a Calendar instance
+        final Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, monthOfYear);
+        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        // Get the beginDate here from the calendar parsed to correct format
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+        String urlDate = format.format(c.getTime());
+        // => "20160405"
+        // Store this date into the filters object
+    }
+
+    public void onCheckboxClicked(View view) {
+        // Is the view now checked?
+        boolean checked = ((CheckBox) view).isChecked();
+
+        // Check which checkbox was clicked
+        switch(view.getId()) {
+            case R.id.cbArts:
+                if (checked) {
+
+                }
+                // Put some meat on the sandwich
+                else {
+
+                }
+                // Remove the meat
+                break;
+            case R.id.cbFashion:
+                if (checked) {
+
+                }
+                // Cheese me
+                else {
+
+                }
+                // I'm lactose intolerant
+                break;
+            case R.id.cbSports:
+                if (checked) {
+
+                }
+                // Cheese me
+                else {
+
+                }
+                // I'm lactose intolerant
+                break;
+        }
+    }
 }

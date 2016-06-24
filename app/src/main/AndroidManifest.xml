@@ -23,7 +23,7 @@
         </activity>
         <activity
             android:name=".activities.ArticleActivity"
-            android:label="@string/title_activity_article"
+            android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
             android:parentActivityName="com.madelynw.nytimessearch.activities.SearchActivity" >
 

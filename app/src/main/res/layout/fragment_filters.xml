@@ -6,10 +6,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Begin Date"
+        android:text="After Date"
         android:layout_marginTop="30dp"
         android:id="@+id/tvBegin"
         android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -21,6 +22,7 @@
         android:text="Sort Order"
         android:id="@+id/tvSortOrder"
         android:fontFamily="sans-serif"
+        android:layout_marginTop="15dp"
         android:layout_alignTop="@+id/spSortOrder"
         android:layout_alignLeft="@+id/tvCategory"
         android:layout_alignStart="@+id/tvCategory" />
@@ -32,32 +34,22 @@
         android:id="@+id/tvCategory"
         android:layout_marginTop="30dp"
         android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
         android:layout_below="@+id/tvSortOrder"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:fontFamily="sans-serif"/>
 
-    <DatePicker
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/dpDate"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_toRightOf="@+id/tvBegin"
-        android:layout_toEndOf="@+id/tvBegin"
-        android:datePickerMode="spinner" />
-
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/spSortOrder"
-        android:layout_below="@+id/dpDate"
-        android:layout_toRightOf="@+id/tvBegin"
-        android:layout_toEndOf="@+id/tvBegin"
+        android:layout_below="@+id/etSelectDate"
+        android:layout_alignLeft="@+id/etSelectDate"
+        android:layout_alignStart="@+id/etSelectDate"
+        android:entries="@array/sort"
+        android:prompt="@string/select_date"
+        android:layout_marginTop="10dp"
         android:spinnerMode="dropdown" />
 
     <CheckBox
@@ -66,8 +58,8 @@
         android:text="Sports"
         android:id="@+id/cbSports"
         android:layout_alignTop="@+id/tvCategory"
-        android:layout_alignLeft="@+id/dpDate"
-        android:layout_alignStart="@+id/dpDate"
+        android:layout_alignLeft="@+id/etSelectDate"
+        android:layout_alignStart="@+id/etSelectDate"
         android:checked="false" />
 
     <CheckBox
@@ -98,5 +90,16 @@
         android:layout_below="@+id/cbArts"
         android:layout_centerHorizontal="true"
         android:onClick="onClick"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/select_date"
+        android:id="@+id/etSelectDate"
+        android:layout_marginLeft="80dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="15dp"
+        android:layout_alignLeft="@+id/tvBegin"
+        android:layout_alignStart="@+id/tvBegin" />
 
 </RelativeLayout>
