@@ -1,7 +1,9 @@
-package com.madelynw.nytimessearch;
+package com.madelynw.nytimessearch.extras;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
+import com.madelynw.nytimessearch.R;
 
 /**
  * Created by madelynw on 6/21/16.

@@ -12,7 +12,7 @@ import android.view.MenuItem;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.madelynw.nytimessearch.Article;
+import com.madelynw.nytimessearch.models.Article;
 import com.madelynw.nytimessearch.R;
 
 public class ArticleActivity extends AppCompatActivity {

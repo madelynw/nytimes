@@ -1,4 +1,4 @@
-package com.madelynw.nytimessearch;
+package com.madelynw.nytimessearch.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -10,7 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.squareup.picasso.Picasso;
+import com.madelynw.nytimessearch.R;
+import com.madelynw.nytimessearch.models.Article;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.madelynw.nytimessearch;
+package com.madelynw.nytimessearch.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -8,7 +8,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * Created by madelynw on 6/20/16.

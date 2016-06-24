@@ -1,14 +1,7 @@
-package com.madelynw.nytimessearch;
+package com.madelynw.nytimessearch.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.Spinner;
-
-import java.util.ArrayList;
 
 /**
  * Created by madelynw on 6/23/16.

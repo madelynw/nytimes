@@ -1,4 +1,4 @@
-package com.madelynw.nytimessearch;
+package com.madelynw.nytimessearch.extras;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;

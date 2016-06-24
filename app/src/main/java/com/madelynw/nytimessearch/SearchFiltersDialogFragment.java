@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.madelynw.nytimessearch.models.SearchFilters;
+
 /**
  * Created by madelynw on 6/23/16.
  */

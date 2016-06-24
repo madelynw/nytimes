@@ -1,4 +1,4 @@
-package com.madelynw.nytimessearch;
+package com.madelynw.nytimessearch.extras;
 
 /**
  * Created by madelynw on 6/21/16.

@@ -1,4 +1,4 @@
-package com.madelynw.nytimessearch;
+package com.madelynw.nytimessearch.extras;
 
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
