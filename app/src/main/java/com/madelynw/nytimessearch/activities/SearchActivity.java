@@ -2,6 +2,7 @@ package com.madelynw.nytimessearch.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +24,8 @@ import com.madelynw.nytimessearch.ArticleArrayAdapter;
 import com.madelynw.nytimessearch.EndlessRecyclerViewScrollListener;
 import com.madelynw.nytimessearch.ItemClickSupport;
 import com.madelynw.nytimessearch.R;
+import com.madelynw.nytimessearch.SearchFilters;
+import com.madelynw.nytimessearch.SearchFiltersDialogFragment;
 import com.madelynw.nytimessearch.SpacesItemDecoration;
 
 import org.json.JSONArray;
@@ -33,7 +36,8 @@ import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity
+        implements SearchFiltersDialogFragment.OnFilterSearchListener {
 
     RecyclerView rvResults;
 
@@ -43,6 +47,8 @@ public class SearchActivity extends AppCompatActivity {
 
     AsyncHttpClient client;
 
+    private SearchFilters mFilters;
+
     private SwipeRefreshLayout swipeContainer;
 
     @Override
@@ -51,6 +57,7 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        update(0);
         setupViews();
     }
 
@@ -185,8 +192,8 @@ public class SearchActivity extends AppCompatActivity {
                 return false;
             }
         });
-        searchItem.expandActionView();
-        searchView.requestFocus();
+        //searchItem.expandActionView();
+        //searchView.requestFocus();
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -228,9 +235,27 @@ public class SearchActivity extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        //int id = item.getItemId();
 
-        return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case R.id.action_search:
+                // User chose the "Settings" item, show the app settings UI...
+                return true;
+
+            case R.id.action_filter:
+                // User chose the "Favorite" action, mark the current item
+                // as a favorite...
+                showFiltersDialog();
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+
+        //return super.onOptionsItemSelected(item);
     }
 
     public void update(int page) {
@@ -268,4 +293,19 @@ public class SearchActivity extends AppCompatActivity {
         });
     }
 
+    // This method is invoked in the activity after dialog is dismissed
+    // Access the filters result passed to the activity here
+    @Override
+    public void onUpdateFilters(SearchFilters filters) {
+        // Access the updated filters here and store in member variable
+        // Triggers a new search with these filters updated
+    }
+
+    // Call this to display the filters dialog!
+    private void showFiltersDialog() {
+        FragmentManager fm = getSupportFragmentManager();
+        SearchFiltersDialogFragment filtersDialogFragment =
+                SearchFiltersDialogFragment.newInstance(mFilters);
+        filtersDialogFragment.show(fm, "fragment_filters");
+    }
 }

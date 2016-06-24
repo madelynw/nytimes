@@ -90,4 +90,13 @@
         android:layout_alignStart="@+id/cbFashion"
         android:checked="false" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:id="@+id/btnSave"
+        android:layout_below="@+id/cbArts"
+        android:layout_centerHorizontal="true"
+        android:onClick="onClick"/>
+
 </RelativeLayout>

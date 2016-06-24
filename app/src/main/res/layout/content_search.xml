@@ -11,6 +11,15 @@
     tools:context=".activities.SearchActivity"
     tools:showIn="@layout/activity_search">
 
+    <!--
+    <fragment
+        android:name="com.madelynw.nytimessearch.SearchFiltersDialogFragment"
+        android:id="@+id/fgsearchFilters"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout="@layout/fragment_filters" />
+        -->
+
     <android.support.v4.widget.SwipeRefreshLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/swipeContainer"

@@ -75,6 +75,7 @@ public class ArticleActivity extends AppCompatActivity {
         shareIntent.putExtra(Intent.EXTRA_TEXT, wvArticle.getUrl());
 
         miShareAction.setShareIntent(shareIntent);
+
         return super.onCreateOptionsMenu(menu);
     }
 

@@ -3,7 +3,9 @@ package com.madelynw.nytimessearch;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 
 /**
@@ -12,7 +14,16 @@ import android.widget.Button;
 public class SearchFiltersDialogFragment extends DialogFragment
         implements View.OnClickListener {
     // ...other views declared here...
+
     private SearchFilters mFilters;
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
+        // Defines the xml file for the fragment
+        return inflater.inflate(R.layout.fragment_filters, parent, false);
+    }
+
 
     // SearchFiltersDialogFragment.newInstance(filters);
     public static SearchFiltersDialogFragment newInstance(SearchFilters filters) {
@@ -34,10 +45,11 @@ public class SearchFiltersDialogFragment extends DialogFragment
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         // Store the filters to a member variable
-        mFilters = (SearchFilters) getArguments().getParcelable("filters");
+        //mFilters = (SearchFilters) getArguments().getParcelable("filters");
+        mFilters = getArguments().getParcelable("filters");
         // ... any other view lookups here...
         // Get access to the button
-        Button btnSave =(Button) view.findViewById(R.id.textView);
+        Button btnSave = (Button) view.findViewById(R.id.btnSave);
         // 2. Attach a callback when the button is pressed
         btnSave.setOnClickListener(this);
     }
@@ -55,4 +67,5 @@ public class SearchFiltersDialogFragment extends DialogFragment
         // Close the dialog to return back to the parent activity
         dismiss();
     }
+
 }
