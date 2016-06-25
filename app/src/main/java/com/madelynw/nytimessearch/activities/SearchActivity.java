@@ -58,7 +58,7 @@ public class SearchActivity extends AppCompatActivity
         setContentView(R.layout.activity_search);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        update(0);
+        //update(0);
         setupViews();
     }
 
@@ -73,6 +73,8 @@ public class SearchActivity extends AppCompatActivity
 
         SpacesItemDecoration decoration = new SpacesItemDecoration(16);
         rvResults.addItemDecoration(decoration);
+
+        showTopStories();
 
         ItemClickSupport.addTo(rvResults).setOnItemClickListener(
                 new ItemClickSupport.OnItemClickListener() {
@@ -129,11 +131,43 @@ public class SearchActivity extends AppCompatActivity
 
     }
 
+    public void showTopStories() {
+        client = new AsyncHttpClient();
+        String url = "http://api.nytimes.com/svc/topstories/v1/world.json";
+
+        RequestParams params = new RequestParams();
+        params.put("api-key", "dba5aa8684784b61aad08add1b93f907");
+
+        client.get(url, params, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                Log.d("DEBUG", response.toString());
+                JSONArray articleJsonResults = null;
+
+                try {
+                    int curSize = adapter.getItemCount();
+                    articleJsonResults = response.getJSONArray("results");
+                    articles.addAll(Article.fromJSONArray(articleJsonResults));
+                    adapter.notifyItemRangeInserted(curSize, articleJsonResults.length());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+            }
+        });
+        //http://api.nytimes.com/svc/topstories/v1/world.json?api-key=dba5aa8684784b61aad08add1b93f907
+    }
+
+
     // Append more data into the adapter
     // This method probably sends out a network request and appends new data items to your adapter.
     public void customLoadMoreDataFromApi(int page) {
 
-        AsyncHttpClient client = new AsyncHttpClient();
+        client = new AsyncHttpClient();
         String url = "http://api.nytimes.com/svc/search/v2/articlesearch.json";
 
         RequestParams params = new RequestParams();
@@ -298,8 +332,11 @@ public class SearchActivity extends AppCompatActivity
     // Access the filters result passed to the activity here
     @Override
     public void onUpdateFilters(SearchFilters filters) {
-        // Access the updated filters here and store in member variable
-        // Triggers a new search with these filters updated
+        // 1. Access the updated filters here and store them in member variable
+        // 2. Initiate a fresh search with these filters updated and same query value
+
+        //mFilters.;
+
     }
 
     // Call this to display the filters dialog!

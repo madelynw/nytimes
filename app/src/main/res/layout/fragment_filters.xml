@@ -6,8 +6,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="After Date"
-        android:layout_marginTop="30dp"
+        android:text="Begin Date"
+        android:paddingTop="15dp"
         android:id="@+id/tvBegin"
         android:layout_marginLeft="15dp"
         android:layout_marginStart="15dp"
@@ -22,7 +22,7 @@
         android:text="Sort Order"
         android:id="@+id/tvSortOrder"
         android:fontFamily="sans-serif"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="2dp"
         android:layout_alignTop="@+id/spSortOrder"
         android:layout_alignLeft="@+id/tvCategory"
         android:layout_alignStart="@+id/tvCategory" />
@@ -49,7 +49,7 @@
         android:layout_alignStart="@+id/etSelectDate"
         android:entries="@array/sort"
         android:prompt="@string/select_date"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:spinnerMode="dropdown" />
 
     <CheckBox
@@ -67,6 +67,7 @@
         android:layout_height="wrap_content"
         android:text="Fashion &amp; Style"
         android:id="@+id/cbFashion"
+        android:paddingRight="15dp"
         android:layout_below="@+id/cbSports"
         android:layout_alignLeft="@+id/cbSports"
         android:layout_alignStart="@+id/cbSports"
@@ -89,7 +90,8 @@
         android:id="@+id/btnSave"
         android:layout_below="@+id/cbArts"
         android:layout_centerHorizontal="true"
-        android:onClick="onClick"/>
+        android:onClick="onClick"
+        android:layout_marginBottom="10dp"/>
 
     <EditText
         android:layout_width="wrap_content"
@@ -98,7 +100,7 @@
         android:id="@+id/etSelectDate"
         android:layout_marginLeft="80dp"
         android:layout_marginStart="80dp"
-        android:layout_marginTop="15dp"
+        android:layout_alignParentTop="true"
         android:layout_alignLeft="@+id/tvBegin"
         android:layout_alignStart="@+id/tvBegin" />
 

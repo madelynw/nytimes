@@ -35,6 +35,9 @@ public class SearchFiltersDialogFragment extends DialogFragment
     CheckBox cbFashion;
     Spinner spSort;
 
+    String newsDesks;
+    String sortOrder;
+    String beginDate;
 
     public SearchFiltersDialogFragment() {
         // Empty constructor is required for DialogFragment
@@ -100,11 +103,7 @@ public class SearchFiltersDialogFragment extends DialogFragment
         // Update the mFilters based on the input views
         // ...
 
-        Toast.makeText(getContext(), "hi", Toast.LENGTH_SHORT).show();
-        // Get value from spinner
-        //String value = spSort.getSelectedItem().toString();
-        //onCheckboxClicked(v);
-
+        Toast.makeText(getContext(), "test", Toast.LENGTH_SHORT).show();
 
         // Return filters back to activity through the implemented listener
         OnFilterSearchListener listener = (OnFilterSearchListener) getActivity();
@@ -133,6 +132,9 @@ public class SearchFiltersDialogFragment extends DialogFragment
         String urlDate = format.format(c.getTime());
         // => "20160405"
         // Store this date into the filters object
+
+
+
     }
 
     public void onCheckboxClicked(View view) {
@@ -143,33 +145,28 @@ public class SearchFiltersDialogFragment extends DialogFragment
         switch(view.getId()) {
             case R.id.cbArts:
                 if (checked) {
-
+                    cbArts.setChecked(true);
+                    //newsDesks = mFilters.getnewsDesks();
                 }
-                // Put some meat on the sandwich
                 else {
 
                 }
-                // Remove the meat
                 break;
             case R.id.cbFashion:
                 if (checked) {
-
+                    cbFashion.setChecked(true);
                 }
-                // Cheese me
                 else {
 
                 }
-                // I'm lactose intolerant
                 break;
             case R.id.cbSports:
                 if (checked) {
-
+                    cbSports.setChecked(true);
                 }
-                // Cheese me
                 else {
 
                 }
-                // I'm lactose intolerant
                 break;
         }
     }

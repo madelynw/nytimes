@@ -2,6 +2,10 @@ package com.madelynw.nytimessearch.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+
+import com.madelynw.nytimessearch.R;
 
 /**
  * Created by madelynw on 6/23/16.
@@ -12,51 +16,28 @@ public class SearchFilters implements Parcelable {
 
     String beginDate;
     String newsDesks;
+    String sortOrder;
 
-    /**
-    Button save;
+    public String getBeginDate() {
+        return beginDate;
+    }
 
-    Spinner spinner; // = (Spinner) findViewById(R.id.spSortOrder);
-    String value = spinner.getSelectedItem().toString();
+    public String getNewsDesks() {
+        return newsDesks;
+    }
 
-    Spinner spinner = (Spinner) findViewById(R.id.spSortOrder);
-    // Create an ArrayAdapter using the string array and a default spinner layout
-    ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-            R.array.sort, android.R.layout.simple_spinner_item);
-    // Specify the layout to use when the list of choices appears
-    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-    // Apply the adapter to the spinner
-    spinner.setAdapter(adapter);
+    public String getSortOrder() {
+        return sortOrder;
+    }
 
+    public SearchFilters() {
+        try {
 
-
-    public void onCheckboxClicked(View view) {
-        // Is the view now checked?
-        boolean checked = ((CheckBox) view).isChecked();
-
-        // Check which checkbox was clicked
-        switch(view.getId()) {
-            case R.id.cbArts:
-                if (checked)
-                // Put some meat on the sandwich
-                else
-                // Remove the meat
-                break;
-            case R.id.cbFashion:
-                if (checked)
-                // Cheese me
-                else
-                // I'm lactose intolerant
-                break;
-            case R.id.cbSports:
-                if (checked)
-                // Cheese me
-                else
-                // I'm lactose intolerant
-                break;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
-    */
+
     @Override
     public int describeContents() {
         return 0;
@@ -66,14 +47,13 @@ public class SearchFilters implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.beginDate);
         dest.writeString(this.newsDesks);
-    }
-
-    public SearchFilters() {
+        dest.writeString(this.sortOrder);
     }
 
     protected SearchFilters(Parcel in) {
         this.beginDate = in.readString();
         this.newsDesks = in.readString();
+        this.sortOrder = in.readString();
     }
 
     public static final Creator<SearchFilters> CREATOR = new Creator<SearchFilters>() {
