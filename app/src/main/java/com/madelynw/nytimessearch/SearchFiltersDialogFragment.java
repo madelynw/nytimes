@@ -7,6 +7,7 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import com.madelynw.nytimessearch.models.SearchFilters;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
@@ -103,7 +105,7 @@ public class SearchFiltersDialogFragment extends DialogFragment
         // Update the mFilters based on the input views
         // ...
 
-        Toast.makeText(getContext(), "test", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "test", Toast.LENGTH_SHORT).show();
 
         // Return filters back to activity through the implemented listener
         OnFilterSearchListener listener = (OnFilterSearchListener) getActivity();

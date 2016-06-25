@@ -28,6 +28,7 @@ import com.madelynw.nytimessearch.R;
 import com.madelynw.nytimessearch.models.SearchFilters;
 import com.madelynw.nytimessearch.SearchFiltersDialogFragment;
 import com.madelynw.nytimessearch.extras.SpacesItemDecoration;
+import com.madelynw.nytimessearch.models.TopArticle;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -58,7 +59,8 @@ public class SearchActivity extends AppCompatActivity
         setContentView(R.layout.activity_search);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //update(0);
+        //showTopStories();
+        update(0);
         setupViews();
     }
 
@@ -73,8 +75,6 @@ public class SearchActivity extends AppCompatActivity
 
         SpacesItemDecoration decoration = new SpacesItemDecoration(16);
         rvResults.addItemDecoration(decoration);
-
-        showTopStories();
 
         ItemClickSupport.addTo(rvResults).setOnItemClickListener(
                 new ItemClickSupport.OnItemClickListener() {
@@ -131,6 +131,7 @@ public class SearchActivity extends AppCompatActivity
 
     }
 
+
     public void showTopStories() {
         client = new AsyncHttpClient();
         String url = "http://api.nytimes.com/svc/topstories/v1/world.json";
@@ -145,9 +146,11 @@ public class SearchActivity extends AppCompatActivity
                 JSONArray articleJsonResults = null;
 
                 try {
+                    adapter.clear();
                     int curSize = adapter.getItemCount();
                     articleJsonResults = response.getJSONArray("results");
-                    articles.addAll(Article.fromJSONArray(articleJsonResults));
+
+                    articles.addAll(TopArticle.fromJSONArray(articleJsonResults));
                     adapter.notifyItemRangeInserted(curSize, articleJsonResults.length());
                 } catch (JSONException e) {
                     e.printStackTrace();

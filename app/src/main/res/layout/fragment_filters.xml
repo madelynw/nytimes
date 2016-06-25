@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <TextView
         android:layout_width="wrap_content"
@@ -14,18 +15,22 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:fontFamily="sans-serif"/>
+        android:fontFamily="serif"
+        android:textColor="@color/black"
+        android:textSize="14dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sort Order"
         android:id="@+id/tvSortOrder"
-        android:fontFamily="sans-serif"
+        android:fontFamily="serif"
         android:layout_marginTop="2dp"
         android:layout_alignTop="@+id/spSortOrder"
         android:layout_alignLeft="@+id/tvCategory"
-        android:layout_alignStart="@+id/tvCategory" />
+        android:layout_alignStart="@+id/tvCategory"
+        android:textColor="@color/black"
+        android:textSize="14dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -38,7 +43,9 @@
         android:layout_below="@+id/tvSortOrder"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:fontFamily="sans-serif"/>
+        android:fontFamily="serif"
+        android:textColor="@color/black"
+        android:textSize="14dp"/>
 
     <Spinner
         android:layout_width="wrap_content"
@@ -60,7 +67,10 @@
         android:layout_alignTop="@+id/tvCategory"
         android:layout_alignLeft="@+id/etSelectDate"
         android:layout_alignStart="@+id/etSelectDate"
-        android:checked="false" />
+        android:checked="false"
+        android:fontFamily="serif"
+        android:textColor="@color/black"
+        android:textSize="14dp"/>
 
     <CheckBox
         android:layout_width="wrap_content"
@@ -71,7 +81,10 @@
         android:layout_below="@+id/cbSports"
         android:layout_alignLeft="@+id/cbSports"
         android:layout_alignStart="@+id/cbSports"
-        android:checked="false" />
+        android:checked="false"
+        android:fontFamily="serif"
+        android:textColor="@color/black"
+        android:textSize="14dp"/>
 
     <CheckBox
         android:layout_width="wrap_content"
@@ -81,7 +94,10 @@
         android:layout_below="@+id/cbFashion"
         android:layout_alignLeft="@+id/cbFashion"
         android:layout_alignStart="@+id/cbFashion"
-        android:checked="false" />
+        android:checked="false"
+        android:fontFamily="serif"
+        android:textColor="@color/black"
+        android:textSize="14dp"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -91,7 +107,12 @@
         android:layout_below="@+id/cbArts"
         android:layout_centerHorizontal="true"
         android:onClick="onClick"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="10dp"
+        android:fontFamily="serif"
+        android:textColor="@color/black"
+        android:background="@drawable/custom_button"
+        android:layout_marginTop="10dp"
+        android:textSize="14dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -102,6 +123,10 @@
         android:layout_marginStart="80dp"
         android:layout_alignParentTop="true"
         android:layout_alignLeft="@+id/tvBegin"
-        android:layout_alignStart="@+id/tvBegin" />
+        android:layout_alignStart="@+id/tvBegin"
+        android:fontFamily="serif"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        android:padding="10dp"/>
 
 </RelativeLayout>
