@@ -16,12 +16,12 @@ The following **optional** features are implemented:
 
 * [x] Used the **ActionBar SearchView** or custom layout as the query box
 * [x] User can **share an article link** to their friends or email it to themselves
-* [ ] Improved the user interface and experiment with image assets and/or styling and coloring
-* [ ] User can click on "settings" which allows selection of **advanced search options** to filter results
-  * [ ] User can configure advanced search filters such as:
-    * [ ] Begin Date (using a date picker)
-    * [ ] News desk values (Arts, Fashion & Style, Sports)
-    * [ ] Sort order (oldest or newest)
+* [x] Improved the user interface and experiment with image assets and/or styling and coloring
+* [x] User can click on "settings" which allows selection of **advanced search options** to filter results
+  * [x] User can configure advanced search filters such as:
+    * [x] Begin Date (using a date picker)
+    * [x] News desk values (Arts, Fashion & Style, Sports)
+    * [x] Sort order (oldest or newest)
   * [ ] Subsequent searches have any selected filters applied to the results
   * [ ] Uses a lightweight modal dialog for filters rather than an activity
 * [x] Replaces the default ActionBar with a [Toolbar](http://guides.codepath.com/android/Using-the-App-ToolBar).
@@ -41,13 +41,15 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='http://i.imgur.com/djeFvzU.gifv' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-When using Genymotion, scrolling down to hide the Toolbar didn't work, but it worked when I tested the app on my Samsung S7.
+When using Genymotion, scrolling down to hide the Toolbar sometimes didn't work, but it worked when I tested the app on my Samsung S7. I also had trouble with the Top Stories API, where there would be a page of blank articles and placeholder images, and then the top stories would load beneath it.
+
+I could have the search filters open in a fragment, but I wasn't able to have the filters apply to subsequent searches.
 
 ## Open-source libraries used
 
