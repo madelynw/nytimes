@@ -41,20 +41,19 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/djeFvzU.gifv' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='http://i.imgur.com/djeFvzU.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-When using Genymotion, scrolling down to hide the Toolbar sometimes didn't work, but it worked when I tested the app on my Samsung S7. I also had trouble with the Top Stories API, where there would be a page of blank articles and placeholder images, and then the top stories would load beneath it.
-
-I could have the search filters open in a fragment, but I wasn't able to have the filters apply to subsequent searches.
+When using Genymotion, scrolling down to hide the Toolbar sometimes didn't work, but it worked when I tested the app on my Samsung S7. I also had trouble with the Top Stories API, where there would be a page of blank articles and placeholder images, and then the top stories would load beneath it. Lastly, I could have the search filters open in a fragment, but I wasn't able to have the filters apply to subsequent searches.
 
 ## Open-source libraries used
 
 - [Android Async HTTP](https://github.com/loopj/android-async-http) - Simple asynchronous HTTP requests with JSON parsing
-- [Picasso](http://square.github.io/picasso/) - Image loading and caching library for Android
+- [Glide](https://inthecheesefactory.com/blog/get-to-know-glide-recommended-by-google/en) - Image loading and caching library for Android
+- [Spaces Item Decoration](https://gist.github.com/yrom/3b4bcbc2370ca2290434) - Staggered images for RecyclerView
 
 ## License
 
